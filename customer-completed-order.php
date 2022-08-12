@@ -393,7 +393,7 @@
 			<div>
 				<p>Hi, <?php echo $order->get_billing_first_name(); ?></p>
 				<p>
-					Just to let you know - we've finsishe processing your order (<?php echo "#" . $order->get_order_number(); ?>)),
+					Just to let you know - we've finished processing your order (<?php echo "#" . $order->get_order_number(); ?>)),
 					and you can now track your order:
 				</p>
 				<p>
