@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Customer processing order email
  *
@@ -15,19 +16,19 @@
  * @version 3.7.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action('woocommerce_email_header', $email_heading, $email); ?>
 
 <?php /* translators: %s: Customer first name */ ?>
-<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<p><?php printf(esc_html__('Hi %s,', 'woocommerce'), esc_html($order->get_billing_first_name())); ?></p>
 <?php /* translators: %s: Order number */ ?>
-<p><?php printf( esc_html__( 'Just to let you know &mdash; we\'ve received your order #%s, and it is now being processed:', 'woocommerce' ), esc_html( $order->get_order_number() ) ); ?></p>
+<p><?php printf(esc_html__('Just to let you know &mdash; we\'ve received your order #%s, and it is now being processed:', 'woocommerce'), esc_html($order->get_order_number())); ?></p>
 
 <?php
 
@@ -37,27 +38,54 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
  * @hooked WC_Structured_Data::output_structured_data() Outputs structured data.
  * @since 2.5.0
  */
-do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
+do_action('woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email);
 
 /*
  * @hooked WC_Emails::order_meta() Shows order meta data.
  */
-do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email );
+do_action('woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, $email);
 
 /*
  * @hooked WC_Emails::customer_details() Shows customer details
  * @hooked WC_Emails::email_address() Shows email address
  */
-do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
+do_action('woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email);
 
-/**
- * Show user-defined additional content - this is set in each email's settings.
- */
-if ( $additional_content ) {
-	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
-}
+
+
+?>
+
+<table id="additional-content" cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: 40px; padding: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" border="0">
+	<tr>
+		<td style="text-align: left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; border: 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="50%">
+			<?php
+
+			/**
+			 * Show user-defined additional content - this is set in each email's settings.
+			 */
+			if ($additional_content) {
+				echo wp_kses_post(wpautop(wptexturize($additional_content)));
+			}
+			?>
+		</td>
+
+	</tr>
+</table>
+
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<?
+
 
 /*
  * @hooked WC_Emails::email_footer() Output the email footer
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action('woocommerce_email_footer', $email);
