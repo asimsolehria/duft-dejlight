@@ -93,7 +93,7 @@ defined('ABSPATH') || exit;
 	</td>
 </tr>
 <tr>
-	<td align="center" style="vertical-align: middle;padding: 10px;">
+	<td align="center" style="vertical-align: middle;padding: 30px;">
 		<?php echo wp_kses_post(wpautop(wptexturize(apply_filters('woocommerce_email_footer_text', get_option('woocommerce_email_footer_text'))))); ?>
 	</td>
 </tr>

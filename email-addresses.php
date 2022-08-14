@@ -30,7 +30,7 @@ $shipping   = $order->get_formatted_shipping_address();
 <table id="addresses" cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: 40px; padding: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" border="0">
 	<tr>
 		<td style="text-align: left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; border: 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="50%">
-			<h2 style="color: #7d766f; display: block; font-family: Helvetica; font-size: 16px; font-weight: bold; line-height: 125%; text-align: left; margin: 10px 0; font-style: normal; letter-spacing: normal;">Billing address</h2>
+			<h2 style="color: #012E57; display: block; font-family: Helvetica; font-size: 16px; font-weight: bold; line-height: 125%; text-align: left; margin: 10px 0; font-style: normal; letter-spacing: normal;">Billing address</h2>
 
 			<address class="address" style="color: #858585;">
 
@@ -45,22 +45,43 @@ $shipping   = $order->get_formatted_shipping_address();
 
 		</td>
 
-		<?php if (!wc_ship_to_billing_address_only() && $order->needs_shipping_address() && $shipping) : ?>
-			<td style="text-align: left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="50%">
-				<h2><?php esc_html_e('Shipping address', 'woocommerce'); ?></h2>
-
-				<address class="address">
-					<?php echo wp_kses_post($shipping); ?>
-					<?php if ($order->get_shipping_phone()) : ?>
-						<br /><?php echo wc_make_phone_clickable($order->get_shipping_phone()); ?>
-					<?php endif; ?>
-				</address>
-			</td>
-		<?php endif; ?>
 
 
 
 
+
+		</td>
+	</tr>
+</table>
+<table id="addresses" cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: 40px; padding: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" border="0">
+	<tr>
+		<td style="text-align: left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; border: 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="50%">
+			<h2 style="color: #012E57; display: block; font-family: Helvetica; font-size: 16px; font-weight: bold; line-height: 125%; text-align: left; margin: 10px 0; font-style: normal; letter-spacing: normal;">Kundeservice åbningstid</h2>
+
+			<address class="address" style="color: #000000;">
+				Har du brug for hjaælp? <br>
+				Svare vi mails løbende. <br>
+				Du kan ringe til os : <br>
+				Mandag- Fredag: 16-19 <br>
+				Lørdag: 10-13 <br>
+
+			</address>
+
+		</td>
+
+
+
+
+
+
+
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td height="20px">
+			<!-- spacer -->
 		</td>
 	</tr>
 </table>

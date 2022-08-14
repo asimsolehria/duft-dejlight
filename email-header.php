@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 <html lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraph.org/schema/">
 
 <head>
-	<title>Camel - WooCommerce Email Template</title>
+	<title> Email from Duftdejligt store </title>
 	<meta name="description" content="Email Template for WooCommerce." />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta charset="UTF-8">
@@ -140,7 +140,7 @@ if (!defined('ABSPATH')) {
 															<td valign="top" class="TextContent" style="padding-top: 9px; padding-left: 18px; padding-bottom: 9px; padding-right: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word; color: #666666; font-family: Helvetica; font-size: 12px; line-height: 150%; text-align: left;">
 
 																<div class="headercontainer" position="relative" width="300px">
-																	<a href="https://themes.email/" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #666666; font-weight: normal; text-decoration: underline;">
+																	<a href="<?php echo site_url(); ?>" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #666666; font-weight: normal; text-decoration: underline;">
 																		<img src="https://duftdejligt.dk/wp-content/uploads/logo.png" alt="Themes Email" width="200" height="38" style="border: 0; display: inline-block; font-size: 14px; font-weight: bold; height: auto !important; outline: none; text-decoration: none; text-transform: capitalize; vertical-align: middle; margin-right: 10px; -ms-interpolation-mode: bicubic;"></a>
 																</div>
 															</td>
@@ -154,7 +154,7 @@ if (!defined('ABSPATH')) {
 															<td valign="top" class="TextContent" style="padding-top: 20px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word; color: #666666; font-family: Helvetica; font-size: 12px; line-height: 150%; text-align: left;">
 
 																<div class="socialheader" style="text-align: right; opacity: 0.7;">
-																	<a href="https://www.facebook.com/" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000000;font-size: 16px; font-weight: normal; text-decoration: underline;">
+																	<a href="<?php echo site_url(); ?>" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000000;font-size: 16px; font-weight: normal; text-decoration: underline;">
 																		Shop
 																	</a>
 
@@ -162,7 +162,7 @@ if (!defined('ABSPATH')) {
 																	&nbsp;
 																	&nbsp;
 
-																	<a href="https://twitter.com/" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000000;font-size: 16px; font-weight: normal; text-decoration: underline;">
+																	<a href="<?php echo site_url() . "/my-account"; ?>" target="_blank" style="mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #000000;font-size: 16px; font-weight: normal; text-decoration: underline;">
 																		My Account
 																	</a>
 
@@ -208,23 +208,23 @@ if (!defined('ABSPATH')) {
 									</tbody>
 								</table>
 								<table bgcolor="#012E57" border="0" cellpadding="0" cellspacing="0" width="100%" class="ImageBlock" style="min-width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-									<tbody class="ImageBlockOuter">
-										<tr>
-											<td valign="top" style="padding: 0px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" class="ImageBlockInner">
-												<table align="left" height="70px" width="100%" border="0" cellpadding="0" cellspacing="0" class="ImageContentContainer" style="min-width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-													<tbody>
-														<tr>
-															<td class="ImageContent" valign="middle" style="padding-right: 0px; padding-left: 20px; padding-top: 0; text-align: center; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
 
-																<h3 style="color: #fff;">
-																	<?php echo $email_heading; ?> 
-																</h3>
+									<tr>
+										<td valign="middle" style="padding: 0px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" class="ImageBlockInner">
+											<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" class="ImageContentContainer" style="min-width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+												<tbody>
+													<tr>
+														<td class="ImageContent" valign="middle" style="padding-bottom: 10px; padding-left: 20px; padding-top: 20px; text-align: center; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
 
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</td>
-										</tr>
-									</tbody>
+															<h3 style="color: #fff;">
+																<?php echo $email_heading; ?>
+															</h3>
+
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+
 								</table>

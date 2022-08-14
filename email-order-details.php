@@ -18,6 +18,18 @@
 
 defined('ABSPATH') || exit;
 
+
+$email_descriptions = array(
+	"admin_cancelled_order" => "Notification to let you know &mdash; order #{$order->get_order_number()} belonging to{$order->get_formatted_billing_full_name} has been cancelled:",
+	"admin_failed_order" => "Payment for order #{$order->get_order_number()} from {$order->get_formatted_billing_full_name} has failed. The order was as follows:",
+	"admin_new_order" => "You’ve received the following order from {$order->get_formatted_billing_full_name}.",
+	"customer_completed_order" => "Hi {$order->get_formatted_billing_full_name}, We have finished processing your order.",
+	"customer_invoice" => "Here are the details of your order placed on{$order->get_date_created()}.",
+	"customer_on_hold_order" => "Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:",
+	"customer_processing_order" => "Just to let you know &mdash; we\'ve received your order #{$order->get_order_number()}, and it is now being processed:",
+	"customer_refunded_order" => "Your order on wp_specialchars_decode( get_option( 'blogname' ) has been refunded.There are more details for your reference.",
+);
+
 $text_align = is_rtl() ? 'right' : 'left';
 
 do_action('woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email); ?>
@@ -48,51 +60,57 @@ do_action('woocommerce_email_before_order_table', $order, $sent_to_admin, $plain
 					<tbody>
 						<tr>
 							<td id="emailcontent" valign="top" class="TextContent" style="padding-top: 9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word; color: #666666; font-family: Helvetica; font-size: 13px; line-height: 150%; text-align: left;">
-								<?php
-								// Check if function exist
-								if (function_exists('ast_get_tracking_items')) {
 
-									$order_id = $order->get_id(); // Replace with your order_id
-
-									$tracking_items = ast_get_tracking_items($order_id);
-
-									foreach ($tracking_items as $tracking_item) {
-										$tracking_number = $tracking_item['tracking_number'];
-										$tracking_provider = $tracking_item['formatted_tracking_provider'];
-										$tracking_url = $tracking_item['formatted_tracking_link'];
-										$date_shipped = date_i18n(get_option('date_format'), $tracking_item['date_shipped']);
-										// Tracking per item info
-
-										// $products_list = $tracking_item['products_list'];
-										// foreach ($products_list as $product) {
-										// 	$product = wc_get_product($product->product);
-										// 	$qty = $product->qty;
-										// }
-									}
-								}
-								?>
-								<p style="margin: 10px 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #4B4B4B; font-family: Helvetica; font-size: 16px; line-height: 150%; text-align: left;">Hi,<?php echo $order->get_billing_first_name(); ?></p>
+								<!-- <p style="margin: 10px 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #4B4B4B; font-family: Helvetica; font-size: 16px; line-height: 150%; text-align: left;">Hi,<?php echo $order->get_billing_first_name(); ?></p> -->
 								<!--  Here Goes Content: Start  -->
-								<p style="margin: 10px 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #4B4B4B; font-family: Helvetica; font-size: 16px; line-height: 150%; text-align: left;">Your order has been received and is now being processed. Your order details are shown below for your reference:</p>
-								<table width="100%" style="border: 2px solid #012E57;padding: 10px;">
-									<tr>
-										<td align="center">
-											<a href="<?php echo $tracking_url; ?>"> TRACK ORDER</a>
-										</td>
-									</tr>
-								</table>
+								<p style="margin: 10px 0; padding: 0; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #4B4B4B; font-family: Helvetica; font-size: 16px; line-height: 150%; text-align: left;"><?php echo $email_descriptions[$email->id]; ?></p>
+								<?php if ("customer_completed_order" === $email->id) : ?>
+									<?php
+									// Check if function exist
+									if (function_exists('ast_get_tracking_items')) {
 
-								<h2 style="color: #7d766f; display: block; font-family: Helvetica; font-size: 16px; font-weight: bold; line-height: 125%; text-align: left; margin: 10px 0; font-style: normal; letter-spacing: normal;">
+										$order_id = $order->get_id(); // Replace with your order_id
+
+										$tracking_items = ast_get_tracking_items($order_id);
+
+										foreach ($tracking_items as $tracking_item) {
+											$tracking_number = $tracking_item['tracking_number'];
+											$tracking_provider = $tracking_item['formatted_tracking_provider'];
+											$tracking_url = $tracking_item['formatted_tracking_link'];
+											$date_shipped = date_i18n(get_option('date_format'), $tracking_item['date_shipped']);
+											// Tracking per item info
+
+											// $products_list = $tracking_item['products_list'];
+											// foreach ($products_list as $product) {
+											// 	$product = wc_get_product($product->product);
+											// 	$qty = $product->qty;
+											// }
+										}
+									}
+									?>
+
+									<?php if ($tracking_url) : ?>
+										<table width="100%" style="border: 2px solid #012E57;padding: 10px;">
+											<tr>
+												<td align="center">
+													<a href="<?php echo $tracking_url; ?>"> TRACK ORDER</a>
+												</td>
+											</tr>
+										</table>
+									<?php endif; ?>
+								<?php endif; ?>
+
+								<!-- <h2 style="color: #7d766f; display: block; font-family: Helvetica; font-size: 16px; font-weight: bold; line-height: 125%; text-align: left; margin: 10px 0; font-style: normal; letter-spacing: normal;">
 									<?php echo wp_kses_post($before . sprintf(__('[Order #%s]', 'woocommerce') . $after . ' (<time datetime="%s">%s</time>)', $order->get_order_number(), $order->get_date_created()->format('c'), wc_format_datetime($order->get_date_created()))); ?>
-								</h2>
+								</h2> -->
 
 								<div style="margin-bottom: 40px;">
 									<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #858585; vertical-align: middle;">
 										<thead>
 											<tr>
-												<th class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Product</th>
-												<th class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Quantity</th>
-												<th class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Price</th>
+												<th width="60%" class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Produkt</th>
+												<th width="10%" class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Antal</th>
+												<th width="30%" class="td" scope="col" style="text-align: left; color: #012E57; vertical-align: middle; border-bottom: 1px solid #ebebeb;">Pris</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -123,7 +141,7 @@ do_action('woocommerce_email_before_order_table', $order, $sent_to_admin, $plain
 											?>
 													<tr>
 														<th class="td" scope="row" colspan="2" style="text-align: right; border-top-width: 0px; color: #858585; vertical-align: middle; padding-top: 8px !important; padding-bottom: 8px !important;"><?php echo wp_kses_post($total['label']); ?></th>
-														<td width="150" class="td" style="border-bottom: 2px solid #012E57 ;text-align: left; border-top-width: 0px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #858585; vertical-align: middle; padding-top: 8px !important; padding-bottom: 8px !important;"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"><?php echo wp_kses_post($total['value']); ?></span></td>
+														<td class="td" style="border-bottom: 2px solid #012E57 ;text-align: left; border-top-width: 0px; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #858585; vertical-align: middle; padding-top: 8px !important; padding-bottom: 8px !important;"><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol"><?php echo wp_kses_post($total['value']); ?></span></td>
 													</tr>
 
 												<?php
@@ -148,5 +166,3 @@ do_action('woocommerce_email_before_order_table', $order, $sent_to_admin, $plain
 
 
 								<?php do_action('woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email); ?>
-
-								

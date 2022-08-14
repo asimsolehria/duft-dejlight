@@ -45,9 +45,25 @@ foreach ($items as $item_id => $item) :
 		<td class="td" style="text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word; mso-line-height-rule: exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #858585; border-bottom: 1px solid #ebebeb;font-weight: bold;">
 			<img width="64" height="64" src="<?php echo $image_url; ?>" class="attachment-64x64 size-64x64 wp-post-image" alt="" style="border: 0; display: inline-block; font-size: 14px; font-weight: bold; height: auto !important; outline: none; text-decoration: none; text-transform: capitalize; vertical-align: middle; margin-right: 10px; -ms-interpolation-mode: bicubic;">
 
-
+			<br>
 			<?php
 
+
+			$terms = get_the_terms($product->get_id(), 'product_cat', array('fields' => 'ids', 'parent' => '1'));
+			if ($terms) {
+				$i = 0;
+				foreach ($terms as $term) {
+
+					$i++;
+					$product_cat = $term->name;
+					if ($i == 2) {
+						echo $product_cat . "-";
+					}
+					if ($i == 1) {
+						$cat = $term->name;
+					}
+				}
+			}
 
 			// Show title/image etc.
 			// if ($show_image) {
@@ -56,24 +72,59 @@ foreach ($items as $item_id => $item) :
 
 			// Product name.
 			echo wp_kses_post(apply_filters('woocommerce_order_item_name', $item->get_name(), $item, false));
+			echo "<br>";
+			echo "<br>";
 
 			// SKU.
-			if ($show_sku && $sku) {
+			if ($sku) {
 				echo wp_kses_post(' (#' . $sku . ')');
 			}
 
-			// allow other plugins to add additional product information here.
-			do_action('woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text);
+			echo "<br>";
+			// echo wc_display_product_attributes($product);
+			foreach ($product->get_attributes() as $attr_name => $attr) {
 
-			wc_display_item_meta(
-				$item,
-				array(
-					'label_before' => '<strong class="wc-item-meta-label" style="float: ' . esc_attr($text_align) . '; margin-' . esc_attr($margin_side) . ': .25em; clear: both">',
-				)
-			);
+				echo wc_attribute_label($attr_name); // attr label
+				// or get_taxonomy( $attr_name )->labels->singular_name;
+
+				foreach ($attr->get_terms() as $term) {
+
+					echo $term->name;
+				}
+				break;
+			}
+
+			echo "<br>";
+
+
+
+			// SKU.
+			$tags = $product->tag_ids;
+			if ($tags) {
+				foreach ($tags as $tag) {
+					echo get_term($tag)->name;
+				}
+			}
+			echo "<br>";
+
+			echo $cat;
+			// $variant = $product->get_attribute('pa_variant');
+			// echo $variant;
+
+
 
 			// allow other plugins to add additional product information here.
-			do_action('woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text);
+			// do_action('woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text);
+
+			// wc_display_item_meta(
+			// 	$item,
+			// 	array(
+			// 		'label_before' => '<strong class="wc-item-meta-label" style="float: ' . esc_attr($text_align) . '; margin-' . esc_attr($margin_side) . ': .25em; clear: both">',
+			// 	)
+			// );
+
+			// allow other plugins to add additional product information here.
+			// do_action('woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text);
 
 			?>
 
